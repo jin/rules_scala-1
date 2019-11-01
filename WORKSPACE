@@ -234,3 +234,32 @@ scala_maven_import_external(
         "https://repo.maven.apache.org/maven2/",
     ],
 )
+
+
+RULES_JVM_EXTERNAL_TAG = "2.9"
+RULES_JVM_EXTERNAL_SHA = "e5b97a31a3e8feed91636f42e19b11c49487b85e5de2f387c999ea14d77c7f45"
+
+http_archive(
+    name = "rules_jvm_external",
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+)
+
+maven_install(
+    name = "maven",
+    artifacts = [
+        "com.google.guava:guava:21.0",
+        "com.twitter:scalding-date_2.11:0.17.0",
+        "org.apache.commons:commons-lang3:3.5",
+        "org.psywerx.hairyfotr:linter_2.11:0.1.13",
+        "org.typelevel:cats-core_2.11:0.9.0",
+    ],
+    repositories = [
+        "https://jcenter.bintray.com",
+        "https://maven.google.com",
+        "https://repo1.maven.org/maven2",
+    ],
+    fetch_sources = True,
+    version_conflict_policy = "pinned",
+)
